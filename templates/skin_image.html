@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Analysis - InnerGlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>InnerGlow</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="login-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="analysis-container">
+            <div class="analysis-header">
+                <h2>Skin Analysis</h2>
+                <p>Complete your profile to get personalized skincare recommendations</p>
+            </div>
+
+            <div class="analysis-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Basic Info</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step active">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Skin Photo</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Skin Concerns</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Results</div>
+                </div>
+            </div>
+
+            <div class="analysis-form">
+                <div class="form-section">
+                    <h3>Upload Your Photo</h3>
+                    <p>Take a clear, well-lit photo of your face without makeup for the most accurate analysis.</p>
+
+                    <div class="photo-upload-container">
+                        <div class="photo-preview" id="photoPreview">
+                            <i class="fas fa-user-circle"></i>
+                            <p>Your photo will appear here</p>
+                        </div>
+
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="upload-options">
+                                <label for="fileUpload" class="upload-btn file-btn">
+                                    <i class="fas fa-file-upload"></i>
+                                    <span>Upload from Device</span>
+                                </label>
+                                <input type="file" id="fileUpload" accept="image/*" hidden>
+                            </div>
+                        </form>
+
+                        <div class="upload-tip">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Your photo will only be used for analysis and won't be stored or shared.</p>
+                        </div>
+
+                        <button id="submitBtn" class="nav-button next-btn">Upload</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation-buttons">
+                <a href="{{url_for('skin_analysis')}}" class="nav-button prev-btn">Previous</a>
+                <a href="{{url_for('skin_concerns')}}" class="nav-button next-btn">Next</a>
+            </div>
+        </div>
+        
+        <div class="chatbot-icon">
+            <a href="{{url_for('chatbot')}}"><i class="fas fa-robot"></i></a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{url_for('static',filename='logo.jpg')}}" alt="InnerGlow Logo" class="site-logo">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="language-selector">
+                <select>
+                    <option>English</option>
+                </select>
+            </div>
+            <div class="copyright">
+                © 2022 Brand, Inc. • <a href="#">Privacy</a> • <a href="#">Terms</a> • <a href="#">Sitemap</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="copyright-full">
+            Made By InnerGlow, All Rights Reserved
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='skin_image.js') }}"></script>
+</body>
+</html>

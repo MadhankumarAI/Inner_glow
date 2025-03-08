@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatBot - InnerGlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>InnerGlow</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="login-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="chatbot-container">
+            <h2>Free ChatBot</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" id="userInput" placeholder="Enter your question" />
+            </div>
+            <button class="btn btn-success" onclick="sendMessage()">Ask!</button>
+            <div id="response"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='logo.jpg') }}" alt="InnerGlow Logo" class="site-logo">
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#">All Jobs</a></li>
+                        <li><a href="#">Companies</a></li>
+                        <li><a href="#">Candidates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">User guides</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Join us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Subscribe to our website</h3>
+                    <p>For product announcements and exclusive insights</p>
+                    <div class="subscribe-form">
+                        <input type="email" placeholder="Input your email">
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="language-selector">
+                <select>
+                    <option>English</option>
+                </select>
+            </div>
+            <div class="copyright">
+                © 2022 Brand, Inc. • <a href="#">Privacy</a> • <a href="#">Terms</a> • <a href="#">Sitemap</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="copyright-full">
+            Made By InnerGlow, All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('userInput').value;
+            const responseDiv = document.getElementById('response');
+        
+            if (!input) {
+                responseDiv.innerHTML = '<p class="error-message">⚠️ Please enter a message.</p>';
+                return;
+            }
+        
+            responseDiv.innerHTML = '<p class="loading">⏳ Thinking...</p>';
+        
+            try {
+                const response = await fetch('/chatbot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: input }),
+                });
+        
+                const data = await response.json();
+                let chatbotReply = data.response || 'No response received.';
+        
+                // Remove asterisks and other markdown symbols
+                chatbotReply = chatbotReply.replace(/\*/g, ''); 
+        
+                // Format and display the response
+                responseDiv.innerHTML = `<div class="chatbot-response">${marked.parse(chatbotReply)}</div>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<p class="error-message">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+</html>

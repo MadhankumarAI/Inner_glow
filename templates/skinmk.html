@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Analysis - InnerGlow</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='chatbot.css')}}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>InnerGlow</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="login-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="analysis-container">
+            <div class="analysis-header">
+                <h2>Skin Analysis</h2>
+                <p>Complete your profile to get personalized skincare recommendations</p>
+            </div>
+
+            <div class="analysis-steps">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Basic Info</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Skin Photo</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Skin Concerns</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Results</div>
+                </div>
+            </div>
+
+            <div class="analysis-form">
+                <div class="form-section">
+                    <h3>Tell us about yourself</h3>
+                    
+                    <div class="form-group">
+                        <label for="age">Your Age</label>
+                        <div class="select-wrapper">
+                            <select id="age" required>
+                                <option value="" disabled selected>Select your age</option>
+                                <option value="under18">Under 18</option>
+                                <option value="18-24">18-24</option>
+                                <option value="25-34">25-34</option>
+                                <option value="35-44">35-44</option>
+                                <option value="45-54">45-54</option>
+                                <option value="55-64">55-64</option>
+                                <option value="65+">65+</option>
+                            </select>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <div class="select-wrapper">
+                            <select id="gender">
+                                <option value="" disabled selected>Select your gender</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="non-binary">Non-binary</option>
+                                <option value="prefer-not">Prefer not to say</option>
+                            </select>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skin-type">Current Skin Type</label>
+                        <div class="select-wrapper">
+                            <select id="skin-type">
+                                <option value="" disabled selected>Select your skin type</option>
+                                <option value="dry">Dry</option>
+                                <option value="oily">Oily</option>
+                                <option value="combination">Combination</option>
+                                <option value="normal">Normal</option>
+                                <option value="sensitive">Sensitive</option>
+                                <option value="not-sure">Not sure</option>
+                            </select>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Upload your photo</h3>
+                        <p>Take a clear, well-lit photo of your face without makeup for the most accurate analysis</p>
+                        
+                        <div class="photo-upload-container">
+                            <div class="photo-preview" id="photoPreview">
+                                <i class="fas fa-user-circle"></i>
+                                <p>Your photo will appear here</p>
+                            </div>
+                            
+                            <div class="upload-options">
+                                <button class="upload-btn camera-btn" id="cameraBtn">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Take Photo</span>
+                                </button>
+                                
+                                <div class="or-divider">
+                                    <span>OR</span>
+                                </div>
+                                
+                                <label for="fileUpload" class="upload-btn file-btn">
+                                    <i class="fas fa-file-upload"></i>
+                                    <span>Upload from Device</span>
+                                </label>
+                                <input type="file" id="fileUpload" accept="image/*" hidden>
+                            </div>
+                        </div>
+                        
+                        <div class="upload-tip">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Your photo will only be used for analysis and won't be stored or shared.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-icon">
+            <a href="{{url_for('chatbot')}}"><i class="fas fa-robot"></i></a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{url_for('static',filename='logo.jpg')}}" alt="InnerGlow Logo" class="site-logo">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="language-selector">
+                <select>
+                    <option>English</option>
+                </select>
+            </div>
+            <div class="copyright">
+                © 2022 Brand, Inc. • <a href="#">Privacy</a> • <a href="#">Terms</a> • <a href="#">Sitemap</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="copyright-full">
+            Made By InnerGlow, All Rights Reserved
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    <script>
+        // Add the JavaScript logic from the first HTML code here
+        document.getElementById('fileUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoPreview = document.getElementById('photoPreview');
+                    photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; border-radius: 10px;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function uploadImage() {
+            const fileInput = document.getElementById('fileUpload');
+            if (fileInput.files.length === 0) {
+                alert('Please select an image.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.createElement('div');
+                resultDiv.id = 'result';
+                if (data.error) {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>Condition: ${data.condition}</h3>
+                        <p><strong>Confidence:</strong> ${(data.confidence * 100).toFixed(2)}%</p>
+                        <h4>Treatment:</h4>
+                        <p><strong>Natural Treatment:</strong> ${data.treatment.natural_treatment || 'N/A'}</p>
+                        <p><strong>Dosage:</strong> ${data.treatment.natural_dosage || 'N/A'}</p>
+                        <p><strong>Clinical Treatment:</strong> ${data.treatment.clinical_treatment || 'N/A'}</p>
+                        <p><strong>Medications:</strong> ${data.treatment.medications || 'N/A'}</p>
+                        <p><strong>Diagnosis Procedures:</strong> ${data.treatment.diagnosis_procedures || 'N/A'}</p>
+                    `;
+                }
+                document.querySelector('.analysis-form').appendChild(resultDiv);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const resultDiv = document.createElement('div');
+                resultDiv.id = 'result';
+                resultDiv.innerHTML = '<p style="color: red;">Prediction failed.</p>';
+                document.querySelector('.analysis-form').appendChild(resultDiv);
+            });
+        }
+
+
+    </script>
+
+</body>
+</html>

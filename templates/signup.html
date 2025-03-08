@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - InnerGlow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1>InnerGlow</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('resources') }}">Resources</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+        </nav>
+        <div class="login-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </header>
+
+    <main class="auth-container">
+        <div class="auth-form">
+            <h2>Sign Up!</h2>
+            <p>Enter your credentials to create your account</p>
+            <div class="social-login">
+                <button class="social-btn google"><i class="fab fa-google"></i></button>
+                <button class="social-btn facebook"><i class="fab fa-facebook"></i></button>
+                <button class="social-btn apple"><i class="fab fa-apple"></i></button>
+            </div>
+            <form id="signup-form" action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="example.email@gmail.com" required>
+                    <button type="button" class="auth-btn" id="get-otp">Get OTP</button>
+                    <p id="otp-message" style="color: green; display: none;"></p>
+                </div>
+                
+            
+                <div class="form-group">
+                    <label for="otp">Enter OTP</label>
+                    <input type="text" id="otp" name="otp" placeholder="Enter OTP" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Character or underscores only" required>
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" placeholder="Enter at least 8+ characters" required>
+                        <button type="button" class="toggle-password">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="confirm-password">Re-enter Password</label>
+                    <div class="password-field">
+                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+                        <button type="button" class="toggle-password">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="form-options">
+                    <div class="terms-conditions">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Terms & Conditions</label>
+                    </div>
+                </div>
+            
+                <button type="submit" class="auth-btn">Sign Up</button>
+            </form>
+            
+        </div>
+        <div class="logo-decoration">
+            <img src="{{url_for('static',filename='logo.jpg')}}" width="500" height="300" style="border-top-left-radius: 50px;" alt="Curved Corner Image">
+        </div>
+        <div class="chatbot-icon">
+            <a href="#"><i class="fas fa-robot"></i></a>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{url_for('static',filename='logo.jpg')}}" alt="InnerGlow Logo" class="site-logo">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="language-selector">
+                <select>
+                    <option>English</option>
+                </select>
+            </div>
+            <div class="copyright">
+                © 2022 Brand, Inc. • <a href="#">Privacy</a> • <a href="#">Terms</a> • <a href="#">Sitemap</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="copyright-full">
+            Made By InnerGlow, All Rights Reserved
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<script>
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function() {
+            let input = this.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+                this.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                input.type = "password";
+                this.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        });
+    });
+
+    document.getElementById("get-otp").addEventListener("click", function() {
+        let email = document.getElementById("email").value;
+        
+        if (!email) {
+            alert("Please enter your email.");
+            return;
+        }
+    
+        // Send request to Flask backend
+        fetch('/get-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ 'email': email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let messageElement = document.getElementById("otp-message");
+            if (data.success) {
+                messageElement.style.color = "green";
+            } else {
+                messageElement.style.color = "red";
+            }
+            messageElement.textContent = data.message;
+            messageElement.style.display = "block";
+        })
+        .catch(error => console.error("Error:", error));
+    });
+</script>
+    
+</body>
+</html>
