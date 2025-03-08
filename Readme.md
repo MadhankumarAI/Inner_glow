@@ -56,11 +56,6 @@ To measure performance, we use:
 Once trained, the model can analyze new skin images and classify the condition.
 💡 **Example:** Just like Google Lens identifies objects, this AI can detect skin diseases! 📸
 
-## 🌐 Deployment
-We can deploy this model via:
-- **Web App (Flask / FastAPI)** 🌍
-- **Mobile App (TensorFlow Lite)** 📱
-- **Cloud API for Healthcare Integration** ☁️
 
 ## 💡 Future Enhancements
 🔹 Improve accuracy with more diverse datasets 📈  
