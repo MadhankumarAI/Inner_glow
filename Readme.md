@@ -1,5 +1,6 @@
-AI cellverse 25
-Team: technovators
+## AI cellverse 25
+
+## Team: technovators
 
 
 # Skin Condition Detection AI
